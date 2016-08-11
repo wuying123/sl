@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='jquery-1.12.3.js'></script>
+	<script>
+	$(function  () {
+		for (var i = 0; i < 10; i++) {
+			for (var j = 0; j < 10; j++) {
+				var lei= Math.random()>0.9;
+
+				$("<div></div>").attr('id',i+"-"+j).addClass(function(){return "block "+(lei?"lei":'')}).appendTo('.scene').on("mousedown",{x:i,y:j,islei:lei},clickHandler);
+			};
+		};
+
+		function clickHandler(e){
+			if(e.which==1){yu
+				zuojiclickHandler.call(this,e);
+			}else if(e.which==3){
+				youjiclickHandler.call(this,e);
+			}
+
+		}
+		function concat(x,y){
+			return x+"-"+y;
+		}
+		function zuojiclickHandler(e){
+			if($(this).is('.flag')){
+				return;
+			}
+			if(e.data.islei){
+				alert('lose');
+				$(".lei").addClass("show");
+
+			}else{
+				var pos=e.data;
+				var num=0;
+				// for (var k = -1; k < 2; k++) {
+				// 	for (var l = -1; l < 2; l++) {
+						
+				// 		if($('#'+concat(pos.x-k,pos.y-l)).is(".lei")){
+				// 			num++;
+				// 		}
+				// 	};
+				// };
+				for (var i = pos.x-1; i <= pos.x+1; i++) {
+					for (var j = pos.y-1; j <= pos.y+1; j++) {
+						if($('#'+i+"-"+j).is(".lei")){
+							num++;
+						}
+					};
+				};
+				$(this).text(num).addClass('num');
+			}
+			
+		};
+		function youjiclickHandler(e){
+			if($(this).is('.num')){
+				return;
+			}
+			$(this).toggleClass("flag");
+			if($(".flag").length==$(".lei").length){
+				if($(".flag").length==$(".lei.flag").length){
+					alert("success");
+				}else{
+					alert("erro");
+				}
+			}
+
+		};
+
+		//右击可触发mousedown事件
+		//阻止浏览器右击行为
+		$(document).on('contextmenu',false);
+	})
+
+	</script>
+	<style>
+	
+	.scene{
+		width: 500px;height: 500px;
+		margin: 0 auto;
+		border-left:1px solid #ccc ;
+		border-top:1px solid #ccc ;
+	}
+	.block{
+		width: 49px;height: 49px;
+		background: #aaa;
+		box-shadow: 0px 0px 3px #000 inset;
+		float: left;
+		border-right: 1px solid #ccc ;
+		border-bottom: 1px solid #ccc ;
+		text-align: center;
+		font-size: 14px;
+		line-height: 49px;
+	}
+	.num{
+		background: #fff;
+	}
+	
+	.show{
+		background-image: url(lei.jpg);
+		background-color: red;
+		background-size: cover;
+	}
+	.flag{
+		background-image: url(flag.jpg);
+		background-size: cover;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="scene">
+	
+	</div>
+	
+</body>
+</html>
